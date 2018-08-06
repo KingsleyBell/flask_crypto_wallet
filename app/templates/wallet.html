@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luke's Crypto Wallet</title>
+</head>
+<body>
+  <div id="balances">
+    <ul>
+      {% for line in balances %}
+        {{ line }}
+        <br>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
