@@ -8,7 +8,7 @@ RUN pip install -U pip
 RUN pip install -r /tmp/requirements.txt
 
 # copy over our app code
-COPY ./app /app
+COPY ./crypto_wallet_app/app /app
 copy ./tick.log /app/tick.log
 
 # set an environmental variable, MESSAGE,
