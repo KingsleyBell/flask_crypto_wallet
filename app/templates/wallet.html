@@ -46,16 +46,14 @@
 
       var btcOptions = {
         title: 'BTC Balance',
-        curveType: 'function',
         legend: { position: 'bottom' },
-        explorer: {}
+        explorer: {maxZoomIn: 8.0}
       };
 
       var zarOptions = {
         title: 'ZAR Balance',
-        curveType: 'function',
         legend: { position: 'bottom' },
-        explorer: {}
+        explorer: {maxZoomIn: 8.0}
       };
       var btcChart = new google.visualization.LineChart(document.getElementById('btc_chart'));
       var zarChart = new google.visualization.LineChart(document.getElementById('zar_chart'));
