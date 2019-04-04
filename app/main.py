@@ -7,15 +7,25 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     balances = []
-    with open('/app/tick.log', 'r') as wallet_file:
+    btc_balances = []
+    zar_balances = []
+    with open('tick.log', 'r') as wallet_file:
         for line in wallet_file:
             line = line.split('root:')[1]
             date = line.split('|')[0].split(' ')[0] + ' '
             amounts = line.split('|')[1:]
-            line_list = [date, *amounts]
-            balances.append('.'.join(line_list))
+            btc_amount = float(amounts[0].split(' ')[-2])
+            zar_amount = float(amounts[1].split(' ')[-1][1:-1])
+            btc_balances.append([date, btc_amount])
+            zar_balances.append([date, zar_amount])
+            balances.append(' .  '.join([f'Date: {date}', f'BTC: {btc_amount}', f'ZAR: {zar_amount}']))
 
-    return render_template('wallet.html', balances=balances)
+    return render_template(
+        'wallet.html',
+        balances=reversed(balances),
+        btc_balances=btc_balances,
+        zar_balances=zar_balances
+    )
 
 
 if __name__ == "__main__":
