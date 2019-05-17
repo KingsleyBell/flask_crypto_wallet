@@ -1,11 +1,19 @@
 from flask import Flask, render_template
 
+from auth import requires_auth
+
 # the all-important app variable:
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/')
 def hello():
+    return render_template('index.html')
+
+
+@app.route('/wallet')
+@requires_auth
+def wallet():
     balances = []
     btc_balances = []
     zar_balances = []
