@@ -1,6 +1,7 @@
 .DS_STORE
 .idea
 venv/
+envfile
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
