@@ -2,6 +2,6 @@ version: '3'
 services:
   web:
     build: ./
-  ports:
-    - "80:80"
-    - "443:800"
+    ports:
+      - "80:80"
+      - "443:800"
