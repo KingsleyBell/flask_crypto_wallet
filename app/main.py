@@ -4,7 +4,6 @@ from auth import requires_auth
 
 # the all-important app variable:
 app = Flask(__name__)
-# sslify = SSLify(app)
 
 @app.route('/')
 def hello():
