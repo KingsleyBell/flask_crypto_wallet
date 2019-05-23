@@ -1,7 +1,5 @@
 from flask import Flask, render_template
 
-from flask_sslify import SSLify
-
 from auth import requires_auth
 
 # the all-important app variable:
