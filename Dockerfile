@@ -1,8 +1,7 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.6
+FROM tiangolo/uwsgi-nginx-flask:python3.7
 
 # copy over our requirements.txt file
 COPY requirements.txt /tmp/
-COPY app/nginx.conf /etc/nginx/conf.d/ngginx.conf
 COPY data/letsencrypt /etc/letsencrypt
 
 # upgrade pip and install required python packages
