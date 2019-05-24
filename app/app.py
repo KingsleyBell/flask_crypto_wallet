@@ -3,14 +3,14 @@ from flask import Flask, render_template
 from auth import requires_auth
 
 # the all-important app variable:
-app = Flask(__name__)
+application = Flask(__name__)
 
-@app.route('/')
+@application.route('/')
 def hello():
     return render_template('index.html')
 
 
-@app.route('/wallet')
+@application.route('/wallet')
 @requires_auth
 def wallet():
     balances = []
@@ -36,4 +36,4 @@ def wallet():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    application.run(host='0.0.0.0', port=80)
