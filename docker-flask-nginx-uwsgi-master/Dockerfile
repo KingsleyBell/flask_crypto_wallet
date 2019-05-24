@@ -36,7 +36,7 @@ RUN apt-get install -y build-essential nano nginx net-tools python3 python3-dev 
 RUN pip3 install --upgrade pip
 
 # Install uwsgi and flask via the requirements.txt file
-RUN pip3 install -r /home/flask/requirements.txt
+RUN pip3 install -r /home/flask/conf/requirements.txt
 
 
 #Update all the things
