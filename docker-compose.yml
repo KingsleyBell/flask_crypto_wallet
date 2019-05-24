@@ -16,5 +16,5 @@ services:
   web:
     build: ./
     hostname: web
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"

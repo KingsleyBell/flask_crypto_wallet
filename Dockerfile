@@ -1,6 +1,6 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.7
+FROM python:3.6
+ADD ./app /app
 
-# copy over our required files and dirs
 COPY requirements.txt /tmp/
 COPY data/letsencrypt /etc/letsencrypt
 
@@ -8,9 +8,8 @@ COPY data/letsencrypt /etc/letsencrypt
 RUN pip install -U pip
 RUN pip install -r /tmp/requirements.txt
 
-# copy over our app code
-COPY ./app /app
-
+WORKDIR /app
 EXPOSE 8000
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "app"]
 
 
