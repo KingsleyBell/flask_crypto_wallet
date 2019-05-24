@@ -1,5 +1,6 @@
 .DS_STORE
 .idea
+app/tick.log
 venv/
 data/
 envfile
