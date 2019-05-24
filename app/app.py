@@ -5,6 +5,7 @@ from auth import requires_auth
 # the all-important app variable:
 application = Flask(__name__)
 
+
 @application.route('/')
 def hello():
     return render_template('index.html')
@@ -33,6 +34,12 @@ def wallet():
         btc_balances=btc_balances,
         zar_balances=zar_balances
     )
+
+
+@application.route('/resume')
+def resume():
+    return application.send_static_file('pdf/Resume.pdf')
+
 
 
 if __name__ == "__main__":
