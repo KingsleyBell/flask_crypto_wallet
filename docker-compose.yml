@@ -11,8 +11,6 @@ services:
       --docker --docker.domain="${DOCKER_DOMAIN}" --docker.endpoint="unix:///var/run/docker.sock" \
       --docker.watch=true --docker.exposedbydefault="false"
     container_name: traefik
-    networks:
-      - core
     ports:
       - "80:80"
       - "443:443"
@@ -24,8 +22,6 @@ services:
 
   web:
     build: ./
-    networks:
-      - core
     labels:
       - "traefik.backend=nginx"
       - "traefik.frontend.rule=Host:${TRAEFIK_HOST}"
