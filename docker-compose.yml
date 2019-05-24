@@ -1,29 +1,18 @@
 version: '3'
 services:
-  lb:
-    image: traefik:1.5-alpine
+  nginx:
     restart: always
-    command: --web --acme.storage=/etc/traefik/acme.json --logLevel=info \
-      ${TRAEFIK_ENTRYPOINT_HTTP} ${TRAEFIK_ENTRYPOINT_HTTPS}\
-      --defaultentrypoints=${TRAEFIK_DEFAULT_ENTRYPOINTS} \
-      --acme=${ACME_ENABLE} --acme.entrypoint=https --acme.httpchallenge --acme.httpchallenge.entrypoint=http \
-      --acme.domains="${ACME_DOMAINS}" --acme.email="${ACME_EMAIL}" \
-      --docker --docker.domain="${DOCKER_DOMAIN}" --docker.endpoint="unix:///var/run/docker.sock" \
-      --docker.watch=true --docker.exposedbydefault="false"
-    container_name: traefik
+    image: nginx:latest
     ports:
       - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - "443:8000"
     volumes:
-      - ./docker/traefik:/etc/traefik/
-      - /var/run/docker.sock:/var/run/docker.sock
-
+      - app/nginx.conf:/etc/nginx/conf.d
+      - /data/letsencrypt:/etc/letsencrypt
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - web
 
   web:
     build: ./
-    labels:
-      - "traefik.backend=nginx"
-      - "traefik.frontend.rule=Host:${TRAEFIK_HOST}"
-      - "traefik.port=443"
-      - "traefik.enable=true"
+    ports: "8000:80"
