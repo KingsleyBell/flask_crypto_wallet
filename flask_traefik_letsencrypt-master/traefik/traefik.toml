@@ -35,7 +35,7 @@ address = ":8080"
 # Enable ACME (Let's Encrypt): automatic SSL
 [acme]
 # Email address used for registration
-email = "test@traefik.io"
+email = "lukekingsleybell@gmail.com"
 # File or key used for certificates storage.
 # WARNING, if you use Traefik in Docker, you have 2 options:
 #  - create a file on your host and mount it as a volume
@@ -73,7 +73,7 @@ OnHostRule = true
 endpoint = "unix:///var/run/docker.sock"
 # Default domain used.
 # Can be overridden by setting the "traefik.domain" label on a container.
-domain = "example.com"
+domain = "lukebell.co.za"
 # Enable watch docker changes
 watch = true
 # Expose containers by default in traefik
