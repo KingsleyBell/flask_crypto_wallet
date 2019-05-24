@@ -1,6 +1,7 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
-# copy over our requirements.txt file
+# copy over our required files and dirs
+COPY app/uwsgi.ini /app/uwsgi.ini
 COPY requirements.txt /tmp/
 COPY data/letsencrypt /etc/letsencrypt
 
