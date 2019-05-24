@@ -15,5 +15,6 @@ services:
 
   web:
     build: ./
+    hostname: web
     expose:
       - "8000"
