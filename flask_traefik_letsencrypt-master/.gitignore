@@ -1,5 +1,0 @@
-.DS_Store
-*.swp
-*.pyc
-__pycache__
-/traefik/acme/acme.json
