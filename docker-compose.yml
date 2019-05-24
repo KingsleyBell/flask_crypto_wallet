@@ -2,24 +2,24 @@ version: '3'
 services:
   lb:
     image: traefik:1.5-alpine
-      restart: always
-      command: --web --acme.storage=/etc/traefik/acme.json --logLevel=info \
-        ${TRAEFIK_ENTRYPOINT_HTTP} ${TRAEFIK_ENTRYPOINT_HTTPS}\
-        --defaultentrypoints=${TRAEFIK_DEFAULT_ENTRYPOINTS} \
-        --acme=${ACME_ENABLE} --acme.entrypoint=https --acme.httpchallenge --acme.httpchallenge.entrypoint=http \
-        --acme.domains="${ACME_DOMAINS}" --acme.email="${ACME_EMAIL}" \
-        --docker --docker.domain="${DOCKER_DOMAIN}" --docker.endpoint="unix:///var/run/docker.sock" \
-        --docker.watch=true --docker.exposedbydefault="false"
-      container_name: traefik
-      networks:
-        - core
-      ports:
-        - "80:80"
-        - "443:443"
-        - "8080:8080"
-      volumes:
-        - ./docker/traefik:/etc/traefik/
-        - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    command: --web --acme.storage=/etc/traefik/acme.json --logLevel=info \
+      ${TRAEFIK_ENTRYPOINT_HTTP} ${TRAEFIK_ENTRYPOINT_HTTPS}\
+      --defaultentrypoints=${TRAEFIK_DEFAULT_ENTRYPOINTS} \
+      --acme=${ACME_ENABLE} --acme.entrypoint=https --acme.httpchallenge --acme.httpchallenge.entrypoint=http \
+      --acme.domains="${ACME_DOMAINS}" --acme.email="${ACME_EMAIL}" \
+      --docker --docker.domain="${DOCKER_DOMAIN}" --docker.endpoint="unix:///var/run/docker.sock" \
+      --docker.watch=true --docker.exposedbydefault="false"
+    container_name: traefik
+    networks:
+      - core
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ./docker/traefik:/etc/traefik/
+      - /var/run/docker.sock:/var/run/docker.sock
 
 
   web:
