@@ -1,3 +1,5 @@
+import random
+
 from flask import Flask, render_template
 
 from auth import requires_auth
@@ -13,7 +15,7 @@ def hello():
 
 @application.route('/wallet')
 @requires_auth
-def wallet():
+def wallet(fake=False):
     balances = []
     btc_balances = []
     zar_balances = []
@@ -24,6 +26,12 @@ def wallet():
             amounts = line.split('|')[1:]
             btc_amount = float(amounts[0].split(' ')[-2])
             zar_amount = float(amounts[1].split(' ')[-1][1:-1])
+
+            if fake:
+                multiplier = random.random() * random.randrange(1, 3)
+                btc_amount = round(btc_amount * multiplier, 3)
+                zar_amount = round(zar_amount * multiplier, 3)
+
             btc_balances.append([date, btc_amount])
             zar_balances.append([date, zar_amount])
             balances.append(' .  '.join([f'Date: {date}', f'BTC: {btc_amount}', f'ZAR: {zar_amount}']))
@@ -34,6 +42,11 @@ def wallet():
         btc_balances=btc_balances,
         zar_balances=zar_balances
     )
+
+
+@application.route('/wallet-fake')
+def wallet_fake():
+    return wallet(fake=True)
 
 
 @application.route('/resume')

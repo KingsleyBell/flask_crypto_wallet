@@ -51,7 +51,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-success" href="/wallet">
+              <a class="nav-link text-success" style="cursor: pointer;" onclick="$('#walletModal').modal()">
                 <h6>
                   Wallet
                   <i class="fa fa-usd"></i>
@@ -66,6 +66,26 @@
   <div class="row justify-content-center">
     <div class="col-md-9 text-center">
       <img src="{{ url_for('static', filename='img/logo.jpg') }}" style="width: 100%;">
+    </div>
+  </div>
+  <div class="modal fade" id="walletModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="w-100">View Crypto Wallet</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Real wallet data is password protected. Click "Fake Data" if you do not have authorization
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" href="/wallet">Continue</a>
+          <a class="btn btn-warning" href="/wallet-fake">Fake Data</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

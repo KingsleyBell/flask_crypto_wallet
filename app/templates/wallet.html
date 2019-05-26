@@ -9,25 +9,50 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
+  <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body style="overflow: hidden;">
-  <h1 style="color: #3366cc; padding-left: 80px; margin-bottom: 15px; display:flex">
-    <div id="btc_total" style="width: 50%;">{{ btc_balances[-1][1] }}BTC</div>
-    <div id="zar_total" style="width: 50%; padding-left: 80px;">R{{ zar_balances[-1][1] }}</div>
-  </h1>
-  <div id="charts" style="display:flex;">
-    <div id="btc_chart" style="width: 50%; height: 50vh"></div>
-    <div id="zar_chart" style="width: 50%; height: 50vh"></div>
-  </div>
-  <h2 style="color: #3366cc; padding-left: 80px; margin-bottom: 15px;">RAW</h2>
-  <div id="balances">
-    <ul style="max-height: 25vh; overflow-y: scroll; padding: 5px 10px; margin: 0 70px; border: 2px solid #3366cc;">
-      {% for line in balances %}
-        {{ line }}
-        <br>
-      {% endfor %}
-    </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1><a class="btn btn-sm btn-outline-success mt-2" style="float: right;" href="/">Back</a></h1>
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-primary pb-3">
+          <div id="btc_total">{{ btc_balances[-1][1] }}BTC</div>
+        </h1>
+        <div id="btc_charts" style="display:flex;">
+          <div id="btc_chart"class="w-100"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-primary pb-3">
+          <div id="zar_total">R{{ zar_balances[-1][1] }}</div>
+        </h1>
+        <div id="ztc_charts" style="display:flex;">
+          <div id="zar_chart" class="w-100"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary pb-3">RAW</h2>
+        <div id="balances">
+          <ul class="border border-primary" style="max-height: 25vh; overflow-y: scroll; padding: 5px 10px;">
+            {% for line in balances %}
+              {{ line }}
+              <br>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
