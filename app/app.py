@@ -20,6 +20,8 @@ def wallet(fake=False):
     btc_balances = []
     zar_balances = []
     with open('tick.log', 'r') as wallet_file:
+        if fake:
+            multiplier = random.random() * random.randrange(1, 3)
         for line in wallet_file:
             line = line.split('root:')[1]
             date = line.split('|')[0].split(' ')[0] + ' '
@@ -28,7 +30,6 @@ def wallet(fake=False):
             zar_amount = float(amounts[1].split(' ')[-1][1:-1])
 
             if fake:
-                multiplier = random.random() * random.randrange(1, 3)
                 btc_amount = round(btc_amount * multiplier, 3)
                 zar_amount = round(zar_amount * multiplier, 3)
 
