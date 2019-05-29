@@ -19,7 +19,7 @@ def wallet(fake=False):
     balances = []
     btc_balances = []
     zar_balances = []
-    with open('tick.log', 'r') as wallet_file:
+    with open('/home/ubuntu/tick.log', 'r') as wallet_file:
         if fake:
             multiplier = random.random() * random.randrange(1, 3)
         for line in wallet_file:
