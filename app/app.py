@@ -13,8 +13,6 @@ def hello():
     return render_template('index.html')
 
 
-@application.route('/wallet')
-@requires_auth
 def wallet(fake=False):
     balances = []
     btc_balances = []
@@ -43,6 +41,11 @@ def wallet(fake=False):
         btc_balances=btc_balances,
         zar_balances=zar_balances
     )
+
+@application.route('/wallet')
+@requires_auth
+def wallet_real():
+    return wallet()
 
 
 @application.route('/wallet-fake')
