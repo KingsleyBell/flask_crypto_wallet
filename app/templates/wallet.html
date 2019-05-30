@@ -54,19 +54,30 @@
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin></script>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    $(document).ready(function() {
+      google.charts.setOnLoadCallback(drawChart);
+    });
 
     var btcData = {{ btc_balances|safe }},
       zarData = {{ zar_balances|safe }},
       btcChartData = [['Date', 'Balance']],
       zarChartData = [['Date', 'Balance']];
     for (i=0; i<btcData.length; i++) {
-      btcChartData.push([new Date(btcData[i][0].split('-')), btcData[i][1]]);
+      btcChartData.push([
+        new Date(btcData[i][0].trim()),
+        btcData[i][1]
+      ]);
     }
     for (i=0; i<zarData.length; i++) {
-      zarChartData.push([new Date(zarData[i][0].split('-')), zarData[i][1]]);
+      zarChartData.push([
+        new Date(zarData[i][0].trim()),
+        zarData[i][1]
+      ]);
     }
 
 
