@@ -42,6 +42,7 @@ def wallet(fake=False):
         zar_balances=zar_balances
     )
 
+
 @application.route('/wallet')
 @requires_auth
 def wallet_real():
@@ -56,7 +57,6 @@ def wallet_fake():
 @application.route('/resume')
 def resume():
     return application.send_static_file('pdf/Resume.pdf')
-
 
 
 if __name__ == "__main__":
