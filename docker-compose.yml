@@ -12,8 +12,7 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     depends_on:
       - luke_web
-    external_links:
-      - paul_website:paul_web
+      - paul_web
 
   luke_web:
     container_name: luke_web
@@ -25,3 +24,7 @@ services:
       - /home/ubuntu/tick.log:/app/tick.log
     env_file:
       - "envfile"
+networks:
+  default:
+    external:
+      name: websites
