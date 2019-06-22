@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
-      - "443:8000"
+      - "443:443"
     volumes:
       - ./app/nginx_conf:/etc/nginx/conf.d
       - ./data/letsencrypt:/etc/letsencrypt
