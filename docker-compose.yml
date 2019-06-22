@@ -14,6 +14,7 @@ services:
       - luke_web
 
   luke_web:
+    container_name: luke_web
     build: ./
     hostname: web
     ports:
