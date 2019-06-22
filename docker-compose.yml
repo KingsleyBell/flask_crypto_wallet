@@ -14,6 +14,7 @@ services:
       - luke_web
     external_links:
       - paul_web
+      - pocket_wallet_web
 
   luke_web:
     container_name: luke_web
