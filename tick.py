@@ -13,9 +13,8 @@ prices = requests.get(binance_url).json()
 # srn_price_result = requests.get(bittrex_srn_price_url).json()
 
 
-def get_coin_btc_price(symbol):	
+def get_coin_btc_price(symbol):
 	return [coin for coin in prices if coin['symbol'] == symbol][0]['lastPrice']
-
 
 ltc_price = get_coin_btc_price('LTCBTC')
 eth_price = get_coin_btc_price('ETHBTC')
@@ -52,7 +51,7 @@ total_btc = 0
 for symbol, curr in wallet.items():
 	curr_btc_total = curr['amount'] * float(curr['btc_price'])
 	curr_rand_total = curr_btc_total * btc_price
-	total_btc += curr_btc_total	
+	total_btc += curr_btc_total
 	print(symbol, f'{curr_btc_total}BTC', f'R{curr_rand_total}')
 
 total_btc_str = f'Total BTC: {round(total_btc, 4)}'
