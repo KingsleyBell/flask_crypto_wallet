@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: crypto-cron
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: crypto-cron
+            env:
+            - name: OUTPUT_FILE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  key: OUTPUT_FILE_PATH
+                  name: luke-web-envfile
+            image: 381080120136.dkr.ecr.eu-west-1.amazonaws.com/crypto-cron:latest
+            volumeMounts:
+              - mountPath: /volume/
+                name: luke-web-volume
+          restartPolicy: OnFailure
+          volumes:
+            - name: luke-web-volume
+              persistentVolumeClaim:
+                claimName: luke-web-volume

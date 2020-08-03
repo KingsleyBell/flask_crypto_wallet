@@ -1,8 +1,7 @@
-FROM python:3.6
+FROM python:3.8-alpine
 ADD ./app /app
 
 COPY requirements.txt /tmp/
-COPY data/letsencrypt /etc/letsencrypt
 
 # upgrade pip and install required python packages
 RUN pip install -U pip

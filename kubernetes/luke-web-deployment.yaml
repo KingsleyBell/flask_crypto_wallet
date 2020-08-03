@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    service: luke-web
+  name: luke-web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: luke-web
+    spec:
+      containers:
+      - env:
+        - name: WALLET_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: WALLET_PASSWORD
+              name: luke-web-envfile
+        - name: WALLET_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: WALLET_USERNAME
+              name: luke-web-envfile
+        - name: INPUT_FILE_PATH
+          valueFrom:
+            configMapKeyRef:
+              key: INPUT_FILE_PATH
+              name: luke-web-envfile
+        image: 381080120136.dkr.ecr.eu-west-1.amazonaws.com/luke-web:latest
+        name: luke-web
+        ports:
+        - containerPort: 8000
+        resources: {}
+        volumeMounts:
+          - mountPath: /volume/
+            name: luke-web-volume
+      hostname: web
+      restartPolicy: Always
+      volumes:
+      - name: luke-web-volume
+        persistentVolumeClaim:
+          claimName: luke-web-volume
+status: {}

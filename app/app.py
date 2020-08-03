@@ -3,6 +3,7 @@ import random
 from flask import Flask, render_template
 
 from auth import requires_auth
+from settings import INPUT_FILE_PATH
 
 # the all-important app variable:
 application = Flask(__name__)
@@ -17,7 +18,7 @@ def wallet(fake=False):
     balances = []
     btc_balances = []
     zar_balances = []
-    with open('tick.log', 'r') as wallet_file:
+    with open(INPUT_FILE_PATH, 'r') as wallet_file:
         if fake:
             multiplier = random.random() * random.randrange(1, 3)
         for line in wallet_file:

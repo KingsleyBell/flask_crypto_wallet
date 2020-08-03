@@ -1,9 +1,13 @@
 from datetime import datetime
 import logging
+import os
 import requests
 
+OUTPUT_FILE_PATH = os.environ.get('OUTPUT_FILE_PATH', default='/app/tick.log')
+
 logging.getLogger("requests").setLevel(logging.WARNING)
-logging.basicConfig(filename='/home/ubuntu/tick.log',level=logging.INFO)
+logging.basicConfig(filename=OUTPUT_FILE_PATH, level=logging.INFO)
+
 
 binance_url = 'https://api.binance.com/api/v1/ticker/24hr'
 # bittrex_vtc_price_url = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-vtc'

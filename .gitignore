@@ -4,3 +4,4 @@ app/tick.log
 venv/
 data/
 envfile
+*__pycache__*
