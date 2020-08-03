@@ -1,107 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Luke's Crypto Wallet</title>
+{% extends "base.html" %}
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-        crossorigin="anonymous">
-
+{% block head %}
+  {{ super() }}
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-</head>
-<body style="overflow: hidden;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h1><a class="btn btn-sm btn-outline-success mt-2" style="float: right;" href="/">Back</a></h1>
-      </div>
-      <div class="col-md-6">
-        <h1 class="text-primary pb-3">
-          <div id="btc_total">{{ btc_balances[-1][1] }}BTC</div>
-        </h1>
-        <div id="btc_charts" style="display:flex;">
-          <div id="btc_chart"class="w-100"></div>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="pl-4">
+        <div id="zar_total" class="pb-5 {% if zar_diff >= 0 %}text-good{% else %}text-bad{% endif %}">
+          {% if zar_diff >= 0 %}
+            <i class="fa fa-arrow-up pr-3"></i>
+          {% else %}
+            <i class="fa fa-arrow-down pr-3"></i>
+          {% endif %}
+          R{{ zar_balances[-1][1] }} ({{ zar_diff }})
         </div>
-      </div>
-      <div class="col-md-6">
-        <h1 class="text-primary pb-3">
-          <div id="zar_total">R{{ zar_balances[-1][1] }}</div>
-        </h1>
-        <div id="ztc_charts" style="display:flex;">
-          <div id="zar_chart" class="w-100"></div>
+        <div id="btc_total" class="{% if btc_diff >= 0 %}text-good{% else %}text-bad{% endif %}">
+          {% if btc_diff >= 0 %}
+            <i class="fa fa-arrow-up pr-3"></i>
+          {% else %}
+            <i class="fa fa-arrow-downpr-3"></i>
+          {% endif %}
+          {{ btc_balances[-1][1] }}BTC ({{ btc_diff }})
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="text-primary pb-3">RAW</h2>
-        <div id="balances">
-          <ul class="border border-primary" style="max-height: 25vh; overflow-y: scroll; padding: 5px 10px;">
-            {% for line in balances %}
-              {{ line }}
-              <br>
-            {% endfor %}
-          </ul>
-        </div>
+      </h1>
+      <div id="btc_charts" style="display:flex;">
+        <div id="btc_chart"class="w-100"></div>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin></script>
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-secondary pb-3">RAW</h2>
+      <div id="balances">
+        <ul class="border border-secondary" style="max-height: 25vh; overflow-y: scroll; padding: 5px 10px;">
+          {% for line in balances %}
+            {{ line }}
+            <br>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
   <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    $(document).ready(function() {
-      google.charts.setOnLoadCallback(drawChart);
-    });
-
-    var btcData = {{ btc_balances|safe }},
-      zarData = {{ zar_balances|safe }},
-      btcChartData = [['Date', 'Balance']],
-      zarChartData = [['Date', 'Balance']];
-    for (i=0; i<btcData.length; i++) {
-      btcChartData.push([
-        new Date(btcData[i][0].trim()),
-        btcData[i][1]
-      ]);
-    }
-    for (i=0; i<zarData.length; i++) {
-      zarChartData.push([
-        new Date(zarData[i][0].trim()),
-        zarData[i][1]
-      ]);
-    }
-
-
-    function drawChart() {
-      var btcData = google.visualization.arrayToDataTable(btcChartData);
-      var zarData = google.visualization.arrayToDataTable(zarChartData);
-
-      var btcOptions = {
-        title: 'BTC Balance',
-        legend: { position: 'bottom' },
-        explorer: {maxZoomIn: 8.0}
-      };
-
-      var zarOptions = {
-        title: 'ZAR Balance',
-        legend: { position: 'bottom' },
-        explorer: {maxZoomIn: 8.0}
-      };
-      var btcChart = new google.visualization.LineChart(document.getElementById('btc_chart'));
-      var zarChart = new google.visualization.LineChart(document.getElementById('zar_chart'));
-
-      btcChart.draw(btcData, btcOptions);
-      zarChart.draw(zarData, zarOptions);
-    }
+    const btcData = {{ btc_balances|safe }},
+      zarData = {{ zar_balances|safe }};
   </script>
-</body>
-</html>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/wallet.js') }}"></script>
+{% endblock %}

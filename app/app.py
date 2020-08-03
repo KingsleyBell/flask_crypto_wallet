@@ -1,3 +1,4 @@
+from datetime import datetime
 import random
 
 from flask import Flask, render_template
@@ -11,7 +12,7 @@ application = Flask(__name__)
 
 @application.route('/')
 def hello():
-    return render_template('index.html')
+    return render_template('index.html', now=datetime.utcnow())
 
 
 def wallet(fake=False):
@@ -40,7 +41,10 @@ def wallet(fake=False):
         'wallet.html',
         balances=reversed(balances),
         btc_balances=btc_balances,
-        zar_balances=zar_balances
+        zar_balances=zar_balances,
+        btc_diff=round(btc_balances[-1][1] - btc_balances[-2][1], 5),
+        zar_diff=round(zar_balances[-1][1] - zar_balances[-2][1], 5),
+        now=datetime.utcnow()
     )
 
 
