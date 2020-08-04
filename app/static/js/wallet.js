@@ -4,8 +4,8 @@ $(document).ready(function () {
   google.charts.setOnLoadCallback(drawChart);
 });
 
-var btcChartData = [['Date', 'Balance']],
-  zarChartData = [['Date', 'Balance']];
+var btcChartData = [['Date', 'BTC Balance']],
+  zarChartData = [['Date', 'ZAR Balance']];
 for (let i = 0; i < btcData.length; i++) {
   btcChartData.push([
     new Date(btcData[i][0].trim()),
@@ -24,7 +24,7 @@ function drawChart() {
     zarData = google.visualization.arrayToDataTable(zarChartData),
     dataJoin = google.visualization.data.join(btcData, zarData, 'full', [[0, 0]], [1], [1]);;
 
-  var materialOptions = {
+  let options = {
     title: 'BTC and ZAR balances over time',
     width: '100%',
     height: 500,
@@ -50,5 +50,5 @@ function drawChart() {
   };
 
   var btcChart = new google.visualization.LineChart(document.getElementById('btc_chart'));
-  btcChart.draw(dataJoin, materialOptions);
+  btcChart.draw(dataJoin, options);
 }
